@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>英文说 · 视频号封面生成器</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="badge">FET</span>
+    <div class="brand-text">
+      <h1>英文说 · 视频号封面生成器</h1>
+      <p>Foshan English Talks TMC — 一键生成品牌封面，直接发布视频号</p>
+    </div>
+  </div>
+  <span class="topbar-note">WORKBUDDY 合作项目 · 本地静态页</span>
+</header>
+
+<main class="layout">
+  <!-- ============ 左侧：表单 ============ -->
+  <section class="panel form-panel">
+    <h2 class="panel-title">1 · 选模板与尺寸</h2>
+    <div class="tpl-grid" id="tplGrid">
+      <button type="button" class="tpl-chip" data-tpl="meeting-preview">
+        <b>例会预告</b><span>主题 + 时间地点 + 报名</span>
+      </button>
+      <button type="button" class="tpl-chip" data-tpl="meeting-recap">
+        <b>会议回顾</b><span>金句 + 亮点 + 日期</span>
+      </button>
+      <button type="button" class="tpl-chip" data-tpl="member-story">
+        <b>会员风采</b><span>姓名 + 角色 + 一句话故事</span>
+      </button>
+      <button type="button" class="tpl-chip" data-tpl="daily-english">
+        <b>每日一句</b><span>外贸英语金句卡片</span>
+      </button>
+      <button type="button" class="tpl-chip" data-tpl="generic">
+        <b>通用封面</b><span>自由标题 + 金句</span>
+      </button>
+    </div>
+
+    <div class="row" id="sizeRow">
+      <label class="seg" data-size="9:16"><input type="radio" name="size" value="9:16" checked />竖版 1080×1920</label>
+      <label class="seg" data-size="3:4"><input type="radio" name="size" value="3:4" />信息流 1080×1440</label>
+    </div>
+
+    <h2 class="panel-title">2 · 配色与背景</h2>
+    <div class="row" id="themeRow">
+      <button type="button" class="theme-chip cream active" data-theme="cream"></button>
+      <button type="button" class="theme-chip teal" data-theme="teal"></button>
+      <button type="button" class="theme-chip burgundy" data-theme="burgundy"></button>
+      <button type="button" class="theme-chip photo" data-theme="photo" title="照片背景"></button>
+    </div>
+
+    <div class="field" id="photoField">
+      <label>背景照片 / 插画（照片模式下生效，建议无文字插画）</label>
+      <input type="file" id="photoInput" accept="image/*" />
+      <div class="row slim" id="dimRow">
+        <label class="slim-label">压暗程度</label>
+        <input type="range" id="dimInput" min="0" max="80" value="30" />
+      </div>
+    </div>
+
+    <h2 class="panel-title">3 · 文案</h2>
+
+    <!-- 通用 -->
+    <div class="field" data-show="meeting-preview,meeting-recap,generic">
+      <label>主标题 <i>（核心视觉）</i></label>
+      <input type="text" id="f-title" placeholder="例如：你可能会射失，还会不会起脚？" />
+    </div>
+    <div class="field" data-show="meeting-preview,meeting-recap,generic">
+      <label>英文副题</label>
+      <input type="text" id="f-enSub" placeholder="例如：WORLD CUP TABLE TOPICS" />
+    </div>
+    <div class="field" data-show="meeting-preview,meeting-recap,generic,member-story">
+      <label>卖点 / 副标题</label>
+      <input type="text" id="f-sub" placeholder="例如：两分钟即兴演讲 × 即时互评" />
+    </div>
+
+    <!-- 例会预告 -->
+    <div class="field" data-show="meeting-preview,meeting-recap">
+      <label>日期</label>
+      <input type="text" id="f-date" placeholder="例如：2026.08.23" />
+    </div>
+    <div class="field" data-show="meeting-preview">
+      <label>时间</label>
+      <input type="text" id="f-time" placeholder="例如：19:30 – 21:30" />
+    </div>
+    <div class="field" data-show="meeting-preview,meeting-recap">
+      <label>地点</label>
+      <input type="text" id="f-venue" placeholder="例如：佛山 · 英文说 TMC" />
+    </div>
+    <div class="field" data-show="meeting-preview">
+      <label>嘉宾 / 主持人 / 演讲人</label>
+      <input type="text" id="f-people" placeholder="例如：主持人 Jager" />
+    </div>
+    <div class="field" data-show="meeting-preview">
+      <label>报名引导语</label>
+      <input type="text" id="f-cta" placeholder="例如：扫码报名 · 等你开口" />
+    </div>
+
+    <!-- 会议回顾 -->
+    <div class="field" data-show="meeting-recap">
+      <label>金句 <i>（引用一段会议里的话）</i></label>
+      <textarea id="f-quote" rows="2" placeholder="例如：美食带来的不只是快乐，更是与家人朋友共度的重要时光。"></textarea>
+    </div>
+    <div class="field" data-show="meeting-recap">
+      <label>亮点 01</label>
+      <input type="text" id="f-h1" placeholder="一只清远白切鸡——一口回到童年" />
+    </div>
+    <div class="field" data-show="meeting-recap">
+      <label>亮点 02</label>
+      <input type="text" id="f-h2" />
+    </div>
+    <div class="field" data-show="meeting-recap">
+      <label>亮点 03</label>
+      <input type="text" id="f-h3" />
+    </div>
+
+    <!-- 会员风采 -->
+    <div class="field" data-show="member-story">
+      <label>姓名</label>
+      <input type="text" id="f-name" placeholder="例如：Bass" />
+    </div>
+    <div class="field" data-show="member-story">
+      <label>职务 / 会龄</label>
+      <input type="text" id="f-role" placeholder="例如：会长 · 会龄 2 年" />
+    </div>
+    <div class="field" data-show="member-story">
+      <label>一句话故事</label>
+      <textarea id="f-story" rows="3" placeholder="例如：开口的勇气，是这里最珍贵的入场券。"></textarea>
+    </div>
+
+    <!-- 每日一句 -->
+    <div class="field" data-show="daily-english">
+      <label>英文关键词</label>
+      <input type="text" id="f-kwEn" placeholder="例如：INQUIRY" />
+    </div>
+    <div class="field" data-show="daily-english">
+      <label>中文释义</label>
+      <input type="text" id="f-kwCn" placeholder="例如：询盘" />
+    </div>
+    <div class="field" data-show="daily-english">
+      <label>英文金句</label>
+      <input type="text" id="f-phEn" placeholder="例如：Thank you for your inquiry." />
+    </div>
+    <div class="field" data-show="daily-english">
+      <label>中文翻译</label>
+      <input type="text" id="f-phCn" placeholder="例如：感谢您的询盘。" />
+    </div>
+    <div class="field" data-show="daily-english">
+      <label>场景例句（英文）</label>
+      <textarea id="f-exEn" rows="3"></textarea>
+    </div>
+    <div class="field" data-show="daily-english">
+      <label>场景例句（中文）</label>
+      <textarea id="f-exCn" rows="2"></textarea>
+    </div>
+    <div class="field" data-show="daily-english">
+      <label>标签</label>
+      <input type="text" id="f-tags" placeholder="#外贸英语 #商务英语 #外贸沟通" />
+    </div>
+
+    <!-- 通用 -->
+    <div class="field" data-show="generic">
+      <label>顶部标签</label>
+      <input type="text" id="f-tagLabel" placeholder="例如：ENGLISH TALKS" />
+    </div>
+    <div class="field" data-show="generic">
+      <label>金句 / 说明</label>
+      <textarea id="f-desc" rows="3" placeholder="一句想说的话。"></textarea>
+    </div>
+
+    <h2 class="panel-title">4 · 二维码（右下角）</h2>
+    <div class="row">
+      <label class="check"><input type="checkbox" id="qrShow" checked />显示二维码</label>
+      <input type="text" id="qrLabel" value="扫码关注" class="grow" />
+    </div>
+    <div class="field">
+      <input type="file" id="qrInput" accept="image/*" />
+    </div>
+
+    <div class="actions">
+      <button type="button" id="downloadBtn" class="primary">⬇ 一键生成并下载 PNG</button>
+      <div class="row slim">
+        <button type="button" id="sampleBtn" class="ghost">填充示例</button>
+        <button type="button" id="resetBtn" class="ghost">清空</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 右侧：预览 ============ -->
+  <section class="panel preview-panel">
+    <div class="preview-head">
+      <h2 class="panel-title">实时预览</h2>
+      <span id="sizeLabel" class="muted">1080 × 1920 px</span>
+    </div>
+    <div class="stage">
+      <canvas id="preview" width="1080" height="1920"></canvas>
+    </div>
+    <p class="filename" id="filenameHint">cover-9x16.png</p>
+  </section>
+</main>
+
+<footer class="foot">
+  品牌规范：深青 #004165 · 酒红 #772432 · 金黄 #F2B544 · 奶油底 #FFF9EF ｜ 英文说 Foshan English Talks TMC
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

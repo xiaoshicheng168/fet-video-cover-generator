@@ -3,12 +3,17 @@
 为 **Foshan English Talks TMC（英文说）** 打造的一键生成视频号封面的本地网页。
 纯静态 HTML + CSS + Canvas，无任何依赖、无需安装，打开即用。
 
+## 线上地址
+
+🌐 **https://xiaoshicheng168.github.io/fet-video-cover-generator/**
+（GitHub Pages 托管，手机 / 电脑浏览器打开即用）
+
 > 本目录位于俱乐部运营库（Obsidian Vault）内，该库为 **WorkBuddy 合作项目** 的一部分。
 > 生成器遵循库内既有品牌规范，与 `05_公关与品牌/每日一句地道外贸英语/daily-trade-english` 技能包同源。
 
 ## 使用方法
 
-1. 双击打开 `index.html`（推荐用 Chrome / Edge / Safari）。
+1. 打开线上地址，或双击本地 `index.html`（推荐用 Chrome / Edge / Safari）。
 2. 左侧选择模板 → 填文案 → 选配色 / 上传背景照片 / 上传二维码。
 3. 右侧实时预览，点 **「⬇ 一键生成并下载 PNG」** 即可得到 1080 宽高清封面。
 
@@ -19,6 +24,22 @@ cd "网站/视频号封面生成器"
 python3 -m http.server 8000
 # 浏览器打开 http://localhost:8000
 ```
+
+## 更新线上版本
+
+本机直连 `github.com` 可能超时，更新线上版本走 GitHub API：
+
+```bash
+cd "网站/视频号封面生成器"
+git add -A && git commit -m "update"
+for f in index.html style.css app.js README.md; do
+  gh api -X PUT "repos/xiaoshicheng168/fet-video-cover-generator/contents/$f" \
+    -f message="update" \
+    -f content="$(base64 -i "$f" | tr -d '\n')" \
+    -f branch="main" > /dev/null && echo "已上传 $f"
+done
+```
+上传后 GitHub Pages 会在 1–2 分钟内自动重新构建。
 
 ## 尺寸
 
